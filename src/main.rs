@@ -90,10 +90,10 @@ async fn main() -> Result<(), ()> {
 
     let prompt_args = openai_api::api::CompletionArgs::builder()
         .prompt(format!(
-            "git diff HEAD\\^!\n{}\n\n# Write a commit message describing the changes and the reasoning behind them\ngit commit -F- <<EOF",
+            "describe well a title of a commit and then the body based on this diff as a good writer: \n{}",
             output
         ))
-        .engine("code-davinci-002")
+        .engine("text-davinci-003")
         .temperature(0.0)
         .max_tokens(2000)
         .stop(vec!["EOF".into()]);
