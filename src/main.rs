@@ -76,14 +76,6 @@ async fn main() -> Result<(), ()> {
 
     let client = openai_api::Client::new(&api_token);
 
-    let output = Command::new("git")
-        .arg("diff")
-        .arg("HEAD")
-        .output()
-        .expect("Couldn't find diff.")
-        .stdout;
-    let output = str::from_utf8(&output).unwrap();
-
     if !cli.dry_run {
         info!("Loading Data...");
     }
@@ -91,7 +83,7 @@ async fn main() -> Result<(), ()> {
     let prompt_args = openai_api::api::CompletionArgs::builder()
         .prompt(format!(
             "describe well a title of a commit and then the body based on this diff as a good writer: \n{}",
-            output
+            format!("{:?}", git_staged_cmd)
         ))
         .engine("text-davinci-003")
         .temperature(0.0)
