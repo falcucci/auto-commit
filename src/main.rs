@@ -82,7 +82,7 @@ async fn main() -> Result<(), ()> {
 
     let prompt_args = openai_api::api::CompletionArgs::builder()
         .prompt(format!(
-            "describe well a commit in raw markdown mode with a title,  two paragraphs and then the body based on this diff as a good developer: \n{}",
+            "describe well a commit in raw markdown mode with a title,  two paragraphs and then the body based on this diff: \n{}",
             format!("{:?}", git_staged_cmd)
         ))
         .engine("text-davinci-003")
