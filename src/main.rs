@@ -1,5 +1,5 @@
 use clap::Parser;
-use clap_verbosity_flag::{InfoLevel, Verbosity};
+use clap_verbosity_flag::{Verbosity};
 use log::{error, info};
 use question::{Answer, Question};
 use std::{
@@ -18,7 +18,7 @@ use spinners::{Spinner, Spinners};
 #[command(about = "Automagically generate commit messages.", long_about = None)]
 struct Cli {
     #[clap(flatten)]
-    verbose: Verbosity<InfoLevel>,
+    verbose: Verbosity,
 
     #[arg(
         long = "dry-run",
@@ -137,7 +137,7 @@ async fn main() -> Result<(), ()> {
     let commit_msg = completion.choices[0].text.to_owned();
 
     if cli.dry_run {
-        info!("{}", commit_msg);
+        println!("{}", commit_msg);
         return Ok(());
     } else {
         info!(
